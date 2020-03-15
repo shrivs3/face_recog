@@ -17,7 +17,9 @@ class FaceDetectorTransformer(TransformerMixin):
 
         if self.final_size is None:
             self.final_size = (160, 160)
-    
+
+        self.label_mask = []
+
         X_transformed = []
         # detecting face
         for i, img_array in enumerate(X):
@@ -46,5 +48,9 @@ class FaceDetectorTransformer(TransformerMixin):
         return np.array(X_transformed)
 
     def apply_label_mask(self, y):
+        
+        if len(y) != len(self.label_mask):
+            raise Exception("The length of label mask is not equal to the length of y.")
+
         if self.label_mask is not None:
             return [v for i,v in enumerate(y) if self.label_mask[i]]
