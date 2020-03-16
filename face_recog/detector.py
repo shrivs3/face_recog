@@ -9,10 +9,10 @@ class FaceDetectorTransformer(TransformerMixin):
         self.final_size = final_size
         self.label_mask = []
 
-    def fit(self, X):
+    def fit(self, X, y=None):
         return self
 
-    def transform(self, X):
+    def transform(self, X, y=None):
         bounding_box = MTCNN()
 
         if self.final_size is None:
@@ -42,10 +42,11 @@ class FaceDetectorTransformer(TransformerMixin):
                 self.label_mask.append(True)
 
             except Exception as e:
-                print('Error finding bounding box:' , e)
+                print('Error finding bounding box for IMG NUM ('+str(i)+'): \n' , e)
                 self.label_mask.append(False)
 
         return np.array(X_transformed)
+
 
     def apply_label_mask(self, y):
         

@@ -4,3 +4,5 @@ models/
 models
 .ipynb_checkpoints
 .ipynb_checkpoints/
+face_recog_pipeline.pkl
+face_recog/__pycache__/
